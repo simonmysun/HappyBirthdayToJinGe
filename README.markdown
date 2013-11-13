@@ -9,13 +9,10 @@ All useful imformation has been centeralized in `_config.yml`.
 Just click [here](http://simonmysun.github.io/HappyBirthdayToJinGe/index.html) to view.
 
 ### to one who want's to use this
-Just fork this repo and make small changes in `_config.yml`. It may be the only file you need to change.
+Just place the code anywhere you want and make some small changes in `index.html`. It must be the only file you need to change.
 
 ### to one who are willing to contribute
 Fork this repo and modify the code. I know that the code is ugly. Please forgive me.. 
-
-## What's in `_config.yml`
-View it yourself. You will match them.  
 
 ## Copyright
 * Rearrange & remade by MY Sun
