@@ -2,7 +2,7 @@ body{
   margin:0;
   padding:0;
   font-size:12px;
-  overflow:auto;
+  overflow-x:hidden;
   font-family: 'Inconsolata' !important;
   background: black;
 }
@@ -24,8 +24,8 @@ body{
 }
 
 #elapseClock{
-  text-align:right;
-  font-size:18px;
+  text-align:center;
+  font-size:16px;
   margin-top:10px;
   margin-bottom:0px
 }
@@ -53,7 +53,8 @@ body{
   margin-top:30px;
   margin-right:0px;
   text-align:center;
-  display:none
+  display:none;
+  width:100%;
 }
 
 #loveu .signature{
@@ -119,4 +120,37 @@ body{
 canvas {
 	cursor: crosshair;
  	display: block;
+	touch-action: none;
+	-webkit-touch-callout: none;
+	user-select: none;
+}
+
+@media (max-width: 700px) {
+  html,
+  body {
+    width:100%;
+  }
+
+  #mainDiv,
+  #content {
+    width:100vw !important;
+  }
+
+  #loveHeart {
+    float:none;
+    width:100vw;
+    max-width:100%;
+    height:min(625px, 100vh);
+    margin:0 auto;
+  }
+
+  #garden {
+    width:100vw;
+    max-width:100%;
+  }
+
+  #words {
+    width:calc(100vw - 40px);
+    max-width:500px;
+  }
 }

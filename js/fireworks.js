@@ -250,21 +250,95 @@ function loop() {
 	}
 }
 
+// update canvas size when the viewport changes
+function resizeCanvas() {
+	cw = window.innerWidth;
+	ch = window.innerHeight;
+	canvas.width = cw;
+	canvas.height = ch;
+}
+
+window.addEventListener( 'resize', resizeCanvas );
+
+// update coordinates from mouse or touch/pointer input
+function updatePointerCoordinates( e ) {
+	var rect = canvas.getBoundingClientRect();
+	var point = e.touches ? e.touches[ 0 ] : e;
+	if( point ) {
+		mx = point.clientX - rect.left;
+		my = point.clientY - rect.top;
+	}
+}
+
 // mouse event bindings
-// update the mouse coordinates on mousemove
 canvas.addEventListener( 'mousemove', function( e ) {
-	mx = e.pageX - canvas.offsetLeft;
-	my = e.pageY - canvas.offsetTop;
+	updatePointerCoordinates( e );
 });
 
-// toggle mousedown state and prevent canvas from being selected
 canvas.addEventListener( 'mousedown', function( e ) {
 	e.preventDefault();
+	updatePointerCoordinates( e );
 	mousedown = true;
 });
 
 canvas.addEventListener( 'mouseup', function( e ) {
 	e.preventDefault();
+	mousedown = false;
+});
+
+canvas.addEventListener( 'mouseleave', function() {
+	mousedown = false;
+});
+
+// pointer events cover modern touch devices, including phones and tablets
+canvas.addEventListener( 'pointerdown', function( e ) {
+	e.preventDefault();
+	updatePointerCoordinates( e );
+	mousedown = true;
+
+	if( canvas.setPointerCapture ) {
+		canvas.setPointerCapture( e.pointerId );
+	}
+}, { passive: false } );
+
+canvas.addEventListener( 'pointermove', function( e ) {
+	if( mousedown ) {
+		e.preventDefault();
+		updatePointerCoordinates( e );
+	}
+}, { passive: false } );
+
+canvas.addEventListener( 'pointerup', function( e ) {
+	e.preventDefault();
+	mousedown = false;
+}, { passive: false } );
+
+canvas.addEventListener( 'pointercancel', function() {
+	mousedown = false;
+});
+
+canvas.addEventListener( 'lostpointercapture', function() {
+	mousedown = false;
+});
+
+// fallback for older mobile browsers without PointerEvent support
+canvas.addEventListener( 'touchstart', function( e ) {
+	e.preventDefault();
+	updatePointerCoordinates( e );
+	mousedown = true;
+}, { passive: false } );
+
+canvas.addEventListener( 'touchmove', function( e ) {
+	e.preventDefault();
+	updatePointerCoordinates( e );
+}, { passive: false } );
+
+canvas.addEventListener( 'touchend', function( e ) {
+	e.preventDefault();
+	mousedown = false;
+}, { passive: false } );
+
+canvas.addEventListener( 'touchcancel', function() {
 	mousedown = false;
 });
 
